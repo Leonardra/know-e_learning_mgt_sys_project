@@ -1,0 +1,1 @@
+delete from learning_party where email = 'janedoe@gmail.com';
