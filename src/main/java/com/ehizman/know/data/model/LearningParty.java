@@ -20,14 +20,18 @@ public class LearningParty extends AuditModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true, nullable = false)
     @NotBlank
     private String email;
+
     @Column(nullable = false)
     @NotBlank
     private String password;
+
     private boolean enabled;
-    @OneToMany(cascade = CascadeType.PERSIST)
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Authority> authorities;
 
     public LearningParty(String email, String password, Authority authority){

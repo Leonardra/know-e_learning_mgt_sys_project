@@ -21,8 +21,7 @@ import java.util.Calendar;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public abstract class AuditModel implements Serializable {
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Calendar createdAt;
 }

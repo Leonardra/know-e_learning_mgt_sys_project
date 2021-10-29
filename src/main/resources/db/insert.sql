@@ -4,4 +4,7 @@
  truncate table instructor;
  truncate table course;
 
- set foreign_key_checks = 1;
+--  insert into learning_party (`id`,`email`,`password`,`enabled`)
+--  values (123, 'toni@gmail.com', 'password123',false);
+
+set foreign_key_checks = 1;

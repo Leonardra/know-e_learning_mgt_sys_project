@@ -53,6 +53,7 @@ public class Instructor {
     @Column(length = 1000)
     private String bio;
 
+    @JoinColumn(nullable = false)
     @OneToOne(cascade = CascadeType.PERSIST)
     private LearningParty learningParty;
 

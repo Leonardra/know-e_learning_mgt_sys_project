@@ -21,7 +21,6 @@ import javax.validation.ConstraintViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Slf4j
@@ -96,5 +95,19 @@ class LearningPartyRepositoryTest {
         assertThat(retrievedFromDatabase.getEmail()).isEqualTo("johndoe@gmail.com");
         assertThat(retrievedFromDatabase.getPassword()).isEqualTo("password");
         assertThat(retrievedFromDatabase.getAuthorities().get(0).getAuthority()).isEqualTo(Role.ROLE_STUDENT);
+    }
+
+
+    @Test
+    @Transactional
+    void findUserByUsernameTest(){
+        LearningParty learningParty = LearningParty.builder()
+                                                    .id(123L).email("toni@gmail.com").password("password123").enabled(false).build();
+
+        repository.save(learningParty);
+        LearningParty fromDb = repository.findUserByEmail("toni@gmail.com");
+        assertThat(fromDb).isNotNull();
+        assertThat(fromDb.getEmail()).isEqualTo("toni@gmail.com");
+        log.info("learning party from database --> {}", fromDb);
     }
 }
