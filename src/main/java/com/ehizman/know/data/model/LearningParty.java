@@ -1,6 +1,7 @@
 package com.ehizman.know.data.model;
 
 import com.ehizman.know.exception.Know_E_LearningException;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,12 +28,15 @@ public class LearningParty extends AuditModel{
 
     @Column(nullable = false)
     @NotBlank
+    @JsonIgnoreProperties
     private String password;
 
     private boolean enabled;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Authority> authorities;
+
+    private String token;
 
     public LearningParty(String email, String password, Authority authority){
         this.email = email;

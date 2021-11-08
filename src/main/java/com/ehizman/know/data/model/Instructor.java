@@ -1,10 +1,12 @@
 package com.ehizman.know.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +19,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Instructor {
+public class Instructor  extends RepresentationModel<Instructor>{
 
     public Instructor(String firstName, String lastName, LearningParty learningParty, Course course) {
         this.firstName = firstName;
@@ -55,6 +57,7 @@ public class Instructor {
 
     @JoinColumn(nullable = false)
     @OneToOne(cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties
     private LearningParty learningParty;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

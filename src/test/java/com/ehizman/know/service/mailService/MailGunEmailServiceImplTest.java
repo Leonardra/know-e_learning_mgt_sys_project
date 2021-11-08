@@ -1,6 +1,5 @@
 package com.ehizman.know.service.mailService;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ class MailGunEmailServiceImplTest {
                 .subject("Hi there!")
                 .body("Hey!, how are you doing")
                 .build();
-        MailResponse response = emailService.sendMailTo(message);
+        MailResponse response = emailService.sendMail(message);
         assertTrue(response.isSuccessful());
     }
 }

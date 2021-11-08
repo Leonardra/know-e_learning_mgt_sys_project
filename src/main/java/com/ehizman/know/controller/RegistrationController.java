@@ -1,6 +1,8 @@
 package com.ehizman.know.controller;
 
 import com.ehizman.know.data.dto.InstructorLearningPartyDto;
+import com.ehizman.know.data.model.Instructor;
+import com.ehizman.know.exception.UserAlreadyExistsException;
 import com.ehizman.know.service.InstructorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,13 @@ public class RegistrationController {
 
     @PostMapping("/instructors/save")
     public ResponseEntity<?> registerAsAnInstructor(@RequestBody InstructorLearningPartyDto dto){
-        log.info("instructor object --> {}", dto);
-        return ResponseEntity.ok().body(instructorService.save(dto));
+        try {
+            Instructor instructorData = instructorService.save(dto);
+            return ResponseEntity.ok().body(instructorData.add());
+        } catch (UserAlreadyExistsException e) {
+            log.info("Exception --> {}", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
 

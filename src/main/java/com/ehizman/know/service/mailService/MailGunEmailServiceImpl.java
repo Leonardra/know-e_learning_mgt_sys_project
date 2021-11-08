@@ -16,21 +16,20 @@ import static com.ehizman.know.service.mailService.MailSenderConstants.*;
 public class MailGunEmailServiceImpl implements EmailService{
 
     @Override
-    public MailResponse sendMailTo(@NotNull Message message){
-        HttpResponse<JsonNode> request = null;
+    public MailResponse sendMail(@NotNull Message message){
+        HttpResponse<JsonNode> request;
         try {
-            request = Unirest.post(MAILGUN_API_HEADER+DOMAIN_NAME+"/messages")
+            request = Unirest.post(BASE_URL+DOMAIN_NAME+"/messages")
                     .basicAuth("api", API_KEY)
                     .queryString("from", message.getFrom())
                     .queryString("to", message.getTo())
                     .queryString("subject", message.getSubject())
-                    .queryString("text", message.getBody())
+                    .queryString("html", message.getBody())
                     .asJson();
             log.info("response-->{}", request.getBody());
-            return request.getStatus() == 200 ?
-                    new MailResponse(true):new MailResponse(false);
+            return request.getStatus() == 200 ? new MailResponse(true):new MailResponse(false);
         } catch (UnirestException e) {
-            log.info("Exception occurred --> {}", e.getMessage());
+            log.info("Exception Mail Sending occurred --> {}", e.getMessage());
             return new MailResponse(false);
         }
     }

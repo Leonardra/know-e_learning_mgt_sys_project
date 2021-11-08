@@ -7,5 +7,5 @@ import javax.validation.constraints.NotNull;
 
 @Service
 public interface EmailService {
-    MailResponse sendMailTo(@NotNull Message message);
+    MailResponse sendMail(@NotNull Message message);
 }
